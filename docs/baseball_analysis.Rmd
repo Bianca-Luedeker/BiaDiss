@@ -1,0 +1,88 @@
+---
+title: "Baseball_Analysis"
+author: "Bianca"
+date: "2023-09-26"
+output: pdf_document
+---
+Required Packages
+```{r message=FALSE, warning=FALSE}
+library(BiaDiss)
+library(tidyverse)
+library(xtable)
+library(compositions) #Creates ternary diagrams
+```
+
+
+If we combine the three age groups into a single group, will the correlations be similar to what we saw when the data was parsed into age groups?  This code creates
+table 7.1 on page 90 and table 7.4 on page 107.  I included the same table twice.
+
+```{r}
+temp <- BattersGrouped %>% select(HR:OTHER)
+(group.cor <- round(cor(temp), 4))
+
+#Creates latex code for table 7.4.
+#xtable(group.cor, type=latex, digits = c(0, rep(4, 6)))
+```
+
+Next we break the data into 3 datasets by age group.
+
+```{r}
+age.1.data <- BattersGrouped %>% filter(GROUP==1) %>% select(HR:OTHER)
+age.2.data <- BattersGrouped %>% filter(GROUP==2) %>% select(HR:OTHER)
+age.3.data <- BattersGrouped %>% filter(GROUP==3) %>% select(HR:OTHER)
+```
+
+Check the correlation structure for each age group.  Are they similar
+enough to grouped data correlation structure? Are there positive and negative correlations? This code creates Table 7.2 on page 106.
+
+```{r}
+(b1 <- round(cor(age.1.data), 4))
+(b2 <- round(cor(age.2.data), 4))
+(b3 <- round(cor(age.3.data), 4))
+
+#Create the latex code for the table 7.2.
+#xtable(b1, type=latex, digits = c(0, rep(4, 6)))
+#xtable(b2, type=latex, digits = c(0, rep(4, 6)))
+#xtable(b3, type=latex, digits = c(0, rep(4, 6)))
+```
+
+Create ternary diagrams for each age group seen on pages 92, 93, 94
+
+I have commented these out because they were taking too long to run and they were unattractive.
+
+```{r warning=FALSE}
+batter.dat <- BattersGrouped %>% rename( "TRI" = TRIPLE,
+                                     "DBL" = DOUBLE,
+                                     "SGL" = SINGLE,
+                                     "OTR" = OTHER)
+
+age.1.data <- batter.dat %>% filter(GROUP==1) %>% select(HR:OTR)
+age.2.data <- batter.dat %>% filter(GROUP==2) %>% select(HR:OTR)
+age.3.data <- batter.dat %>% filter(GROUP==3) %>% select(HR:OTR)
+
+
+##YY <- acomp(age.1.data + 0.00001)
+##jpeg("fig_8_1_A.jpeg", width =800, height = 800, quality = 100)
+##plot(YY, pch=20, cex=1,  main="Age Group 1 Ternary Diagrams")
+##dev.off()
+
+
+##YY <- acomp(age.2.data + 0.00001)
+##jpeg("fig_8_1_B.jpeg", width =800, height = 800, quality = 100)
+##plot(YY, pch=20, cex=1,  main="Age Group 2 Ternary Diagrams")
+##dev.off()
+
+##YY <- acomp(age.3.data + 0.00001)
+##jpeg("fig_8_1_C.jpeg", width =800, height = 800, quality = 100)
+##plot(YY, pch=20, cex=1,  main="Age Group 3 Ternary Diagrams")
+##dev.off()
+
+```
+
+Returns the complete binary tree for the baseball dataset.  
+```{r}
+complete.bin.tree(BattersGrouped[,4:9])
+```
+
+
+

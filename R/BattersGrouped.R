@@ -1,0 +1,23 @@
+#' Proportion of Six Outcomes for Batters
+#'
+#' Gives the proportion of home runs, third base hits, second base hits, first
+#' base hits, outs, and others for 8099 combinations of batters and seasons.
+#'
+#' @format A data frame with 8099 observations on 10 variables.
+#' \describe{
+#'   \item{ID}{A number specifying the ID of each batter.}
+#'   \item{AGE}{The age of a batter at the start of a certain season.}
+#'   \item{GROUP}{The age group the batter was classified into.  Group 1 is
+#'   less than 25 years of age.  Group 2 is 25 years to less than 35 years.
+#'   Group 3 is 35 years and older.}
+#'   \item{HR}{The proportion of home runs a batter hit that season. }
+#'   \item{TRIPLE}{The proportion of triples a batter had that season.}
+#'   \item{DOUBLE}{The proportion of doubles a batter had that season.}
+#'    \item{SINGLE}{The proportion of singles a batter had that season.}
+#'    \item{OUT}{The proportion of outs a batter had that season.}
+#'    \item{OTHER}{The proportion of time a batter got a base on balls, the
+#'    batter was hit by pitch,  or there was a call of interference. }
+#'    \item{TOTAL}{The total of plate appearances a batter had during a specific
+#'    season.}
+#' }
+"BattersGrouped"
